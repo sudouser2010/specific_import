@@ -42,7 +42,10 @@ def import_file(resource_file, absolute_path_to_resource_directory=None):
     if absolute_path_to_resource_directory is None:
         absolute_file_path_of_target_file = define_path_relative_to_file_doing_importing(resource_file)
     else:
-        absolute_file_path_of_target_file = define_path_based_on_resource_directory(resource_file, absolute_path_to_resource_directory)
+        absolute_file_path_of_target_file = define_path_based_on_resource_directory(
+            resource_file, 
+            absolute_path_to_resource_directory
+        )
 
     spec = importlib.util.spec_from_file_location('', absolute_file_path_of_target_file)
     resource = importlib.util.module_from_spec(spec)
