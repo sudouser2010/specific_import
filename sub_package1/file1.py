@@ -1,20 +1,32 @@
 import os
 import sys
+import inspect
 import importlib.util
 
 
-def get_absolute_path_of_file_doing_importing():
-    path = os.path.realpath(sys.argv[0])
+def get_absolute_path_of_file_doing_importing(frames):
+
+    current_file_path = __file__
+    for index, frame in enumerate(frames):
+        if current_file_path == frame.filename:
+            break
+
+    try:
+        frame_of_file_doing_importing = frames[index + 1]
+    except IndexError:
+        raise IndexError("The next frame which represents the importing file doesn't exist")
+
+    path = frame_of_file_doing_importing.filename
     return path
 
 
-def get_absolute_directory_path_of_file_doing_importing():
-    path = get_absolute_path_of_file_doing_importing()
+def get_absolute_directory_path_of_file_doing_importing(frames):
+    path = get_absolute_path_of_file_doing_importing(frames)
     return os.path.dirname(path)
 
 
-def define_path_relative_to_file_doing_importing(resource):
-    path_to_directory_of_file_doing_importing = get_absolute_directory_path_of_file_doing_importing()
+def define_path_relative_to_file_doing_importing(resource, frames):
+    path_to_directory_of_file_doing_importing = get_absolute_directory_path_of_file_doing_importing(frames)
     relative_path_of_resource = os.path.join(path_to_directory_of_file_doing_importing, resource)
     absolute_path_of_resource = os.path.abspath(relative_path_of_resource)
     return absolute_path_of_resource
@@ -67,7 +79,8 @@ def load_resource_module(resource_module, spec):
 def import_file(resource, absolute_path_to_resource_directory=None):
 
     if absolute_path_to_resource_directory is None:
-        absolute_path_of_resource = define_path_relative_to_file_doing_importing(resource)
+        frames = inspect.stack()
+        absolute_path_of_resource = define_path_relative_to_file_doing_importing(resource, frames)
     else:
         absolute_path_of_resource = define_path_based_on_resource_directory(
             resource,
