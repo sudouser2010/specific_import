@@ -1,5 +1,7 @@
 # specific_import
 
+## This package allows you to import resources by their relative or absolute file paths.<br><br>
+
 ## Features
   * Is open source
   * Is compatible with the latest version of Python3
@@ -7,8 +9,17 @@
     * (as opposed to relative to the file doing the calling as other import libraries do.)
   * Doesn't reload module if module already loaded
   
+## How to install
+* Method 1: Use PIP
+```
+pip install specific_import
+```
+
+* Method 2: 
+Download from Github<br><br>  
   
- ## Usage
+  
+ ## Example
 ```python
 from specific_import import import_file
 
