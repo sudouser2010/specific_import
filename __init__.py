@@ -1,2 +1,1 @@
-from . src import *
-
+from src.specific_import import *

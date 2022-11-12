@@ -53,7 +53,7 @@ def define_init_file_in_python_package(absolute_file_path_of_target_resource: st
     Returns the __init__.py file in a Python package
         :param absolute_file_path_of_target_resource: absolute file path of Python package
     """
-    return os.path.join(absolute_file_path_of_target_resource, '__init__.py')
+    return os.path.join(absolute_file_path_of_target_resource, '../__init__.py')
 
 
 def get_file_extension(absolute_path_of_resource) -> str:
