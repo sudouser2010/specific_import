@@ -159,7 +159,7 @@ def import_file(module_file_path: str) -> object:
         return sys.modules[absolute_module_file_path]
 
     # --------- add module's parent folders to Python module path
-    path = Path(absolute_path_to_folder)
+    path = Path(absolute_module_file_path)
     parent_directory = str(path.parent.absolute())
     append_to_python_path(parent_directory)
 
