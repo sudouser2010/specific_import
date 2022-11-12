@@ -1,2 +1,2 @@
-from . sub_package1 import *
+from . src import *
 
